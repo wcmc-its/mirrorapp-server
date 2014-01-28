@@ -51,5 +51,8 @@ else { exit; }
 $json_arr = array();
 $json_arr = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
 $json_string = json_encode($json_arr);
+
+header('Content-Type: application/json');
 echo $json_string;
+exit;
 ?>
