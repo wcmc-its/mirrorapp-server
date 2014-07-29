@@ -27,11 +27,18 @@
 //    )
 //);
 
-/** Retrieve url parameters for JSON call */
-$request = $_GET['response'];
-$request_id = intval($_GET['id']);
+$request = '';
+$request_id = '';
 
-/** Select correct JSON database query from request */
+// Retrieve url parameters for JSON call
+if(isset($_GET['response'])){
+  $request = $_GET['response'];
+}
+if(isset($_GET['id'])){
+  $request_id = intval($_GET['id']);
+}
+
+// Select correct JSON database query from request
 if ($request == "campuses") { 
      $query = "SELECT id,name FROM campuses ORDER BY weight,name";
    }
@@ -44,10 +51,32 @@ elseif ($request == "rooms") {
 elseif ($request == "devices") {
      $query = "SELECT id,name,model,host FROM devices WHERE room_id='" . $request_id . "' ORDER BY name";
    }
+elseif ($request == "devicetype") {
+  // Select json file from devicetype id sent
+     switch ($request_id) {
+     	case 1:
+	  $jsonfile = "AppleTV2comma1Registration.json";
+	  break;
+	case 2:
+	  $jsonfile = "AirServerRegistration.json";
+	  break;
+	case 3: 
+	  $jsonfile = "ReflectorRegistration.json";
+	  break;
+	default:
+	  $jsonfile = "AppleTV3comma2Registration.json";
+	  break;
+     }
+     if (file_exists($jsonfile)) {
+       header('Content-Type: application/json');
+       readfile($jsonfile);
+     }
+     exit;   
+ }
 // Return nothing if doesn't match a request 
 else { exit; }
 
-/** Run query and build JSON response from result */  
+// Run query and build JSON response from result  
 $json_arr = array();
 $json_arr = $db->query($query)->fetchAll(PDO::FETCH_ASSOC);
 $json_string = json_encode($json_arr);
