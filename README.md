@@ -11,7 +11,7 @@ Requirements:
  * SSL (JSON calls are all made over SSL) with a valid SSL cert. Self-signed certs will not work.
  * Code must be installed in the json folder at the root directory of your host. 
 
-[mirrorapp]: http://mirror.psu.edu 
+[mirrorapp]: https://github.com/psutlt/mirrorapp 
 [extension]: https://drupal.org/requirements/pdo
 
 Setup:
@@ -69,5 +69,6 @@ Jason Heffner, Sherwyn Saul, and Ben Brautigam at Penn State University for the 
 License
 -------
 
-Copyright 2014 Penn State University
-Distributed under GPLv2 license.
+Copyright: © 2014, The Pennsylvania State University  
+Distributed under MIT License
+
