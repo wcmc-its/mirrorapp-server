@@ -3,25 +3,31 @@ Mirror App Server
 
 This is the JSON server that accompanies the [Mirror iOS App][mirrorapp]. It provides the campus, building, room, and device information in JSON format so it can be displayed on the iOS device.
 
-Requirements:
+## Requirements
 
  * Web Server (Apache was only tested, however IIS should also work)
  * PHP 5.3+, PDO Support (enabled by default on most linux systems, separate IIS [extension][extension].)
  * MySQL or SQLite3 (both tested)
  * SSL (JSON calls are all made over SSL) with a valid SSL cert. Self-signed certs will not work.
  * Code must be installed in the json folder at the root directory of your host. 
+ 
+Additional AppleTV Requirements:
+ 
+ * Fully Qualified Domain Name(FQDN) for each AppleTV registration in the database.
+ * AppleTV not required, additonal support for AirServer and Reflector.
+ 
 
 [mirrorapp]: https://github.com/psutlt/mirrorapp 
 [extension]: https://drupal.org/requirements/pdo
 
-Setup:
+## Setup
 
 The URL expected by the App is "https://" . MirrorUrl . "/json/". The MirrorUrl is entered on the screen by the user when loading the App for the first time. If this URL can not be found the app will not load the next screen. For example, if mirrorapp.example.edu is entered the App will try and load JSON from https://mirrorapp.example.edu/json/ .
 
 1. Install index.php in the json folder on your server.
 2. Run the appropriate MySQL or SQLite3 sql script included in the sql folder to create the database, or you can also use the included sample SQLite3 database.
 3. Edit index.php to select your database type and settings.
-4. Enter new AppleTV registrations into the database. 
+4. Enter new AppleTV registrations into the database.
 
 No GUI is currently supplied for entering new AppleTV registrations. The SQLite3 sample database was created on OSX using [Base][base], but any SQLite3 compatible editor should work. We are currently using phpMyAdmin with MySQL.
 
@@ -41,8 +47,8 @@ An easy way to test that your Mirror App Server is working is to check https://(
 
 [https://mirrordemo.tlt.psu.edu/json/?response=campuses]: https://mirrordemo.tlt.psu.edu/json/?response=campuses
 
-Security
--------
+## Security
+
 IP restriction can be used to limit which subnets the JSON is available. An example .htaccess file or Apache config would look something like this. Keep in mind the server would show as not available when trying to load the App outside of these subnets. A valid SSL cert is also required as self-signed certs are not allowed.
 
 ```
@@ -61,14 +67,13 @@ IP restriction can be used to limit which subnets the JSON is available. An exam
 	</Files>
 ```
 
-Credits
--------
+## Credits
+
 
 Jason Heffner, Sherwyn Saul, and Ben Brautigam at Penn State University for the proof of concept, vision, and coding work. Chuck Enfield, with telecomunications, for his support and help in deploying test bonjour networks. Chris Millet for his persistance and support in getting this project to its full potential. 
 
-License
--------
+## License
+
 
 Copyright: © 2014, The Pennsylvania State University  
 Distributed under MIT License
-
